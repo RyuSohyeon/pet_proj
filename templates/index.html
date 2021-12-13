@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HELLO PET</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>HELLO PET</h2>
+        </div>
+        <div class="main">
+            <div>
+                <img src="{{ url_for('video_feed') }}">
+            </div>
+            <div>
+                <button onclick="motor()">배식</button>        
+            <div>
+                <button onclick="led()">전등</button>
+            </div>
+            <div>
+                <button onclick="bell()">초인종</button>                      <!-- Javascript 함수 지정 -->
+            </div>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+    <script>
+        function camera(){
+			$.get( 'feed')
+			.done(function( data ) {
+				if(data == '1'){
+					alert('Success!');
+				}else{
+					alert('Fail!');
+				}
+			});
+        }
+        function motor(){
+            fetch("/motor")                                                    /* 해당 경로 파일을 실행 */
+            .then(response=> { console.log(response); return response.text()})
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");                 /* result 영역을 알아내고 */
+                if(data=="ok"){                                                 /* "ok" 가 돌아오면 이에 따라 적합한 결과 출력해 줌 */
+                    result.innerHTML = "feed check";
+                }else{
+                    result.innerHTML = "retry";
+                }
+            });
+        }
+        function led(){
+            fetch("/led")
+            .then(response=> response.text())
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");
+                if(data=="ok"){  
+                    result.innerHTML = "led check";
+                }else{
+                    result.innerHTML = "retry";
+                }
+            });
+        }
+        function bell(){
+            fetch("/bell")
+            .then(response=> response.text())
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");
+                if(data=="ok"){  
+                    result.innerHTML = "Bell check";
+                }else{
+                    result.innerHTML = "retry";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

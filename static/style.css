@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(250, 215, 215);
+}
+
+.container {                    /* 전체 화면의 크기 마진 그리고 글자정렬 */
+    width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main {                         /* 첫번째 버튼 */
+    display: flex;
+}
+
+.main div {                     /* 두번째 버튼. 새로 만들때 마다 번호 올려주면 됨 */
+    flex:1;
+}
+
+.main div button {              /* 버튼의 모양 */
+    background-color: rgb(187, 109, 109);
+    width:150px;
+    height:80px;
+    border-radius: 5x;
+}
